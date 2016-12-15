@@ -41,7 +41,7 @@
     "codacy" : ["no", "yes"],
     "codeclimate" : ["no", "yes"],
     "sphinx_theme": ["sphinx-rtd-theme", "sphinx-py3doc-enhanced-theme"],
-    "sphinx_doctest": ["no", "yes"],
+    "sphinx_doctest": ["yes", "no"],
     "travis": ["no", "yes"],
     "appveyor": ["no", "yes"],
     "requiresio": ["no", "yes"]

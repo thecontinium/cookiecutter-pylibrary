@@ -6,6 +6,7 @@
     "project_name": "machinelearning",
     "repo_name": "python-{{ cookiecutter.project_name|lower|replace(' ','-') }}",
     "package_name": "{{ cookiecutter.project_name|lower|replace(' ','_')|replace('-','_') }}",
+    "package_index": ["testpypi", "pypi"],
     "distribution_name": "{{ cookiecutter.package_name|replace('_','-') }}",
     "project_short_description": "Machine Learning",
     "release_date": "today",

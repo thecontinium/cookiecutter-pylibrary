@@ -9,7 +9,8 @@ node { // <1>
         env.PATH = "${env.PYENV_ROOT}/shims:${env.PYENV_ROOT}/bin:/usr/local/bin:${env.PATH}"
         sh "pyenv install -s ${env.PYENV_VERSION}; eval \"\$(pyenv init -)\"; pyenv shell ${env.PYENV_VERSION}"
         sh "pyenv which python"
-        sh "pip install tox"
+        sh "pip install --upgrade pip"
+        sh "pip install --upgrade tox"
     }
     
     stage('Build') { // <2>

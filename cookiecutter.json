@@ -44,5 +44,6 @@
     "sphinx_doctest": ["yes", "no"],
     "travis": ["no", "yes"],
     "appveyor": ["no", "yes"],
+    "jenkins": ["yes", "no"],
     "requiresio": ["no", "yes"]
 }

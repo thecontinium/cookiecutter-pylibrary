@@ -69,6 +69,11 @@ if __name__ == "__main__":
         os.unlink(join('ci', 'templates', '.travis.yml'))
 {% endif %}
 
+{%- if cookiecutter.jenkins|lower == 'no' %}
+    if os.path.exists(join('ci', 'templates', 'Jenkinsfile')):
+        os.unlink(join('ci', 'templates', 'Jenkinsfile'))
+{% endif %}
+
     print("""
 ################################################################################
 ################################################################################

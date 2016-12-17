@@ -4,16 +4,16 @@ node { // <1>
 
     stage('Setup Tools') { // <2>
         echo 'Setup Tools' // <3>
-        env.PYENV_VERSION = "3.5.2"
+        env.PYENV_VERSION = "3.5.2:3.4.5:3.3.6:2.7.12:pypy2-5.6.0"
         env.PYENV_ROOT = "${env.HOME}/.pyenv"
         env.PATH = "${env.PYENV_ROOT}/shims:${env.PYENV_ROOT}/bin:/usr/local/bin:${env.PATH}"
-        sh "pyenv install -s ${env.PYENV_VERSION}; eval \"\$(pyenv init -)\"; pyenv shell ${env.PYENV_VERSION}"
-        sh "eval \"\$(pyenv init -)\"; pyenv install -s 2.7.12; pyenv shell ${env.PYENV_VERSION} 2.7.12"
-        sh "pyenv which python"
+        checkout scm
+        sh "./ci/jenkins-pyenv-install.sh ${env.PYENV_VERSION}"
         sh "pyenv versions"
-        sh "pyenv shell ${env.PYENV_VERSION} 2.7.12; pyenv versions"
+        sh "pyenv which python"
         sh "pip install --upgrade pip"
         sh "pip install --upgrade tox"
+        sh "tox"
     }
     
     stage('Build') { // <2>
@@ -28,3 +28,4 @@ node { // <1>
         echo 'Deploy'
     }
 }
+

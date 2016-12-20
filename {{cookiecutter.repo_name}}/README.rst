@@ -8,7 +8,8 @@ Overview
     :stub-columns: 1
 
     * - docs
-      - |docs|
+      - {%- if cookiecutter.readthedocs|lower == 'yes' %} |docs|{% endif -%} 
+{{ '' }}
     * - tests
       - | {%- if cookiecutter.travis|lower == 'yes' %} |travis|{% endif -%}
           {%- if cookiecutter.appveyor|lower == 'yes' %} |appveyor|{% endif -%}
@@ -25,11 +26,14 @@ Overview
         {%- endif -%}
 {{ '' }}
     * - package
-      - |version| |downloads| |wheel| |supported-versions| |supported-implementations|
+      - {%- if cookiecutter.readthedocs|lower == 'yes' %} |version| |downloads| |wheel| |supported-versions| |supported-implementations|{% endif -%}
+      
 
+{%- if cookiecutter.readthedocs|lower == 'yes' %}
 .. |docs| image:: https://readthedocs.org/projects/{{ cookiecutter.repo_name }}/badge/?style=flat
     :target: https://readthedocs.org/projects/{{ cookiecutter.repo_name|replace('.', '') }}
     :alt: Documentation Status
+{% endif %}
 {{ '' }}
 {%- if cookiecutter.travis|lower == 'yes' %}
 .. |travis| image:: https://travis-ci.org/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}.svg?branch=master
@@ -71,6 +75,7 @@ Overview
    :target: https://codeclimate.com/github/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
    :alt: CodeClimate Quality Status
 {% endif %}
+{%- if cookiecutter.readthedocs|lower == 'yes' %}
 .. |version| image:: https://img.shields.io/pypi/v/{{ cookiecutter.distribution_name }}.svg?style=flat
     :alt: PyPI Package latest release
     :target: https://{{ cookiecutter.package_index }}.python.org/pypi/{{ cookiecutter.distribution_name }}
@@ -90,6 +95,7 @@ Overview
 .. |supported-implementations| image:: https://img.shields.io/pypi/implementation/{{ cookiecutter.distribution_name }}.svg?style=flat
     :alt: Supported implementations
     :target: https://{{ cookiecutter.package_index }}.python.org/pypi/{{ cookiecutter.distribution_name }}
+{% endif %}
 {% if cookiecutter.scrutinizer|lower == 'yes' %}
 .. |scrutinizer| image:: https://img.shields.io/scrutinizer/g/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/master.svg?style=flat
     :alt: Scrutinizer Status
@@ -112,7 +118,9 @@ Installation
 Documentation
 =============
 
+{%- if cookiecutter.readthedocs|lower == 'yes' %}
 https://{{ cookiecutter.repo_name|replace('.', '') }}.readthedocs.io/
+{% endif %}
 
 Development
 ===========

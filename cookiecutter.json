@@ -42,6 +42,7 @@
     "codeclimate" : ["no", "yes"],
     "sphinx_theme": ["sphinx-rtd-theme", "sphinx-py3doc-enhanced-theme"],
     "sphinx_doctest": ["yes", "no"],
+    "readthedocs": ["no", "yes"],
     "travis": ["no", "yes"],
     "appveyor": ["no", "yes"],
     "jenkins": ["yes", "no"],

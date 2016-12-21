@@ -4,7 +4,7 @@ node { // <1>
 
     stage('Setup Tools') { // <2>
         echo 'Setup Tools' // <3>
-        env.PYENV_VERSION = "{{ pyenv_version }}"
+        env.PYENV_VERSION = "{% raw %}{{ pyenv_version }}{% endraw %}"
         env.PYENV_ROOT = "${env.HOME}/.pyenv"
         env.PATH = "${env.PYENV_ROOT}/shims:${env.PYENV_ROOT}/bin:/usr/local/bin:${env.PATH}"
         checkout scm

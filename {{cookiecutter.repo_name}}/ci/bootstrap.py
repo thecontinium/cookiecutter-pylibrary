@@ -26,8 +26,8 @@ if __name__ == "__main__":
             subprocess.check_call(["virtualenv", env_path])
         except subprocess.CalledProcessError:
             subprocess.check_call([sys.executable, "-m", "virtualenv", env_path])
-        print("Installing `jinja2` {% if cookiecutter.test_matrix_configurator == "yes" %}and `matrix` {% endif %}into bootstrap environment...")
-        subprocess.check_call([join(bin_path, "pip"), "install", "jinja2"{% if cookiecutter.test_matrix_configurator == "yes" %}, "matrix"{% endif %}])
+        print("Installing `jinja2` {% if cookiecutter.test_matrix_configurator == "yes" %}and `matrix and configparser` {% endif %}into bootstrap environment...")
+        subprocess.check_call([join(bin_path, "pip"), "install", "jinja2"{% if cookiecutter.test_matrix_configurator == "yes" %}, "matrix", "configparser"{% endif %}])
     activate = join(bin_path, "activate_this.py")
     # noinspection PyCompatibility
     exec(compile(open(activate, "rb").read(), activate, "exec"), dict(__file__=activate))
@@ -35,6 +35,7 @@ if __name__ == "__main__":
     import jinja2
 {% if cookiecutter.test_matrix_configurator == "yes" %}
     import matrix
+    import configparser
 {% else %}
     import subprocess
 {% endif %}
@@ -45,6 +46,11 @@ if __name__ == "__main__":
         keep_trailing_newline=True
     )
 {% if cookiecutter.test_matrix_configurator == "yes" %}
+    config_parser= configparser.ConfigParser()
+    config_parser.read(join(base_path, "setup.cfg"))
+    python_versions=config_parser.get("matrix","python_versions").split("\n")
+    python_versions.remove("")
+    pyenv_version = ":".join([v.split(":")[0] for v in python_versions])
     tox_environments = {}
     for (alias, conf) in matrix.from_file(join(base_path, "setup.cfg")).items():
         python = conf["python_versions"]
@@ -66,9 +72,10 @@ if __name__ == "__main__":
         for line in subprocess.check_output(['tox', '--listenvs'], universal_newlines=True).splitlines()
     ]
     tox_environments = [line for line in tox_environments if line not in ['clean', 'report', 'docs', 'check']]
+    pyenv_version = "3.5.2:3.4.5:3.3.6:2.7.12:pypy2-5.6.0"
 {% endif %}
     for name in os.listdir(join("ci", "templates")):
         with open(join(base_path, name), "w") as fh:
-            fh.write(jinja.get_template(name).render(tox_environments=tox_environments))
+            fh.write(jinja.get_template(name).render(tox_environments=tox_environments,pyenv_version=pyenv_version))
         print("Wrote {}".format(name))
     print("DONE.")

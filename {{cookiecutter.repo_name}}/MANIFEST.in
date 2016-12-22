@@ -9,7 +9,7 @@ include .coveragerc
 include .cookiecutterrc
 include .editorconfig
 include .isort.cfg
-include .python_version
+include .python-version
 
 include AUTHORS.rst
 include CHANGELOG.rst

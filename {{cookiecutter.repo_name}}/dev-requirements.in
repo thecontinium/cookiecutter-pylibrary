@@ -1,0 +1,15 @@
+tox
+pytest
+pip-tools
+coverage
+sphinxcontrib-spelling
+pyenchant
+docutils
+check-manifest
+flake8
+readme-renderer
+pygments
+isort
+codecov
+pytest-travis-fold
+cpp-coveralls
